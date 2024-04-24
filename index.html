@@ -161,6 +161,18 @@
       .history-section{
         background-image: url('data:image/svg+xml,%3Csvg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.4" fill-rule="evenodd"%3E%3Cpath d="M0 40L40 0H20L0 20M40 40V20L20 40"/%3E%3C/g%3E%3C/svg%3E');
       }
+      .medHlog {
+  border-bottom:0.5pt solid aqua;
+        padding:15px;
+        margin-bottom:5px;
+        background-color:#dddddd6e;
+        border-radius:5px;
+        width:fill-content
+}
+      .medHlog:hover{
+        background-color:#000;
+        color:#fff
+      }
     </style>
 </head>
 
@@ -321,7 +333,8 @@
             // If timer reaches 0, stop the timer and log the session
             if (minutes === 0 && seconds === 0) {
                 clearInterval(timerInterval);
-                showToast(`Your ${getPhaseOfDay()} meditation session completed @${getCurrentDateTime()}`);
+                showToast(`Your ${getPhaseOfDay()} meditation session completed @${getCurrentDateTime()}`);//session completed toast
+               throw new Error('Failed to fire completion');
                 logMeditationHistory(true);
             }
 
@@ -383,6 +396,8 @@
             historyContainer.innerHTML = '';
             history.forEach((entry, index) => {
                 const entryElement = document.createElement('div');
+      console.log(entryElement);
+              entryElement.classList.add('medHlog'); 
               
                 entryElement.textContent = `${entry.startDate} - ${entry.endDate} - Completed: ${entry.completed ? 'Yes' : 'No'}`;
                 historyContainer.appendChild(entryElement);
