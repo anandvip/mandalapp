@@ -397,7 +397,7 @@
             historyContainer.innerHTML = '';
             history.forEach((entry, index) => {
                 const entryElement = document.createElement('div');
-      console.log(entryElement);
+      
               entryElement.classList.add('medHlog'); 
               
                 entryElement.textContent = `${entry.startDate} - ${entry.endDate} - Completed: ${entry.completed ? 'Yes' : 'No'}`;
