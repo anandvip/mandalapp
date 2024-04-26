@@ -186,6 +186,20 @@
       }
         #thisExists{
             color:#fff
+        }
+        .start{
+        background-color:green;
+        width:fit-content
+      }
+      .stop{
+        background-color:red;
+        width:fit-content;
+        margin-left:5px
+      }
+      .clos{
+        width:fit-content;
+        margin-left:5px
+      }
     </style>
 </head>
 
@@ -270,9 +284,9 @@
         <!-- Timer dialog -->
         <div id="timerDialog" class="hidden">
             <div class="timer">13:00</div>
-            <button onclick="startTimer()">Start</button>
-            <button onclick="stopTimer()">Stop</button>
-            <button onclick="closeTimer()">Close</button>
+            <button class="start" onclick="startTimer()">Start</button>
+            <button class="stop" onclick="stopTimer()">Stop</button>
+            <button class="clos" onclick="closeTimer()">Close</button>
         </div>
 
         <!-- Toast notifications -->
