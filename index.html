@@ -542,7 +542,7 @@
 
             let userName = localStorage.getItem('userName');
             const message = userName ? `Welcome back, ${userName}, to the ${daysSinceStart}th day in ${mandalaName}.` :
-                `Welcome to the ${daysSinceStart}th day in ${mandalaName}.`;
+                `Welcome to the ${daysSinceStart}th day in ${mandalaName} for your ${getPhaseOfDay()}.`;
 
             showToast(message);
         }
