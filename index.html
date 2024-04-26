@@ -545,6 +545,7 @@
         if (event.key === 'Enter') {
             saveUserName();
         }
+            });
 
             if (userName) {
                 localStorage.setItem('userName', userName);
@@ -651,7 +652,7 @@
             } else {
                 alert('Please enter your name.');
             }
-        }
+        });
 
         // Function to welcome user
         function welcomeUser() {
