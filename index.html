@@ -196,17 +196,21 @@
                     <button class="close" onclick="closeDialog()">closeⓧ</button>
                     <main>
                         <!-- Mandal creation section -->
-                        <section id="mandalCreation">
-                            <button id="createMandal">Create New Mandal</button>
-                            <div id="mandalForm" class="hidden">
-                                <input type="text" id="mandalName" placeholder="Mandal Focus or Intention">
-                                <select id="mandalDuration">
-                                    <option value="48">48 days (96 sessions)</option>
-                                    <option value="90">90 days (1 session/day)</option>
-                                </select>
-                                <button id="saveMandal">Save Mandal</button>
-                            </div>
-                        </section>
+<section id="mandalCreation">
+    <button id="createMandal" onclick="checkLocalStorage()">Create New Mandal</button>
+</section>
+
+<!-- Intrusive Toast for Mandal Creation Form -->
+<div id="intrusiveToast" class="hidden">
+    <h2>Create a New Mandal</h2>
+    <input type="text" id="mandalName" placeholder="Mandal Focus or Intention" required>
+    <select id="mandalDuration" required>
+        <option value="48">48 days (96 sessions)</option>
+        <option value="90">90 days (1 session/day)</option>
+    </select>
+    <input type="date" id="startDate" placeholder="Start Date">
+    <button onclick="saveMandal()">Save Mandal</button>
+</div>
                         <!-- Session tracking section -->
                         <section id="sessionTracking">
                             <button id="startSession" class="hidden">Start Session</button>
