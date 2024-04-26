@@ -705,6 +705,118 @@
         toastElement.classList.add('hidden');
     }
 </script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    checkLocalStorage();
+});
+
+// Function to check local storage and show dialog if necessary
+function checkLocalStorage() {
+    const userName = localStorage.getItem('userName');
+    const mandalProgress = JSON.parse(localStorage.getItem('mandalProgress'));
+
+    if (!userName || !mandalProgress) {
+        showIntrusiveToast();
+    } else {
+        showToast(`Welcome back, ${userName}!`);
+    }
+}
+
+// Function to show the intrusive toast for Mandal Creation
+function showIntrusiveToast() {
+    const toastElement = document.getElementById('intrusiveToast');
+    toastElement.classList.remove('hidden');
+}
+
+// Function to save Mandal details
+function saveMandal() {
+    const mandalName = document.getElementById('mandalName').value;
+    const mandalDuration = document.getElementById('mandalDuration').value;
+    const startDate = document.getElementById('startDate').value || getNextDay();
+
+    // Validate fields
+    if (!mandalName || !mandalDuration || !startDate) {
+        showToast('All fields are required.');
+        return;
+    }
+
+    // Calculate session count based on mandal duration
+    const sessionCount = mandalDuration === '48' ? 96 : 90;
+
+    // Save mandal details to local storage
+    const mandalDetails = {
+        name: mandalName,
+        duration: mandalDuration,
+        creationDate: startDate,
+        sessionCount,
+        endDate: calculateEndDate(startDate, sessionCount)
+    };
+
+    localStorage.setItem('mandalProgress', JSON.stringify([mandalDetails]));
+
+    // Inform user about session count
+    showToast(`Mandal created with ${sessionCount} sessions.`);
+}
+
+// Function to get next day date
+function getNextDay() {
+    const today = new Date();
+    const nextDay = new Date(today);
+    nextDay.setDate(today.getDate() + 1);
+    return nextDay.toISOString().split('T')[0];
+}
+
+// Function to calculate end date based on start date and session count
+function calculateEndDate(startDate, sessionCount) {
+    const startDateObj = new Date(startDate);
+    startDateObj.setDate(startDateObj.getDate() + sessionCount - 1);
+    return startDateObj.toISOString().split('T')[0];
+}
+
+// Function to display toast notification
+function showToast(message) {
+    const toastElement = document.getElementById('toastNotification');
+    const toastMessageElement = document.getElementById('toastMessage');
+
+    toastMessageElement.innerText = message;
+    toastElement.classList.remove('hidden');
+
+    setTimeout(() => {
+        toastElement.classList.add('hidden');
+    }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    checkLocalStorage();
+});
+
+// Function to check local storage and show dialog if necessary
+function checkLocalStorage() {
+    const userName = localStorage.getItem('userName');
+    const mandalProgress = JSON.parse(localStorage.getItem('mandalProgress'));
+
+    const thisExistsElement = document.getElementById('thisExists');
+
+    if (!userName || !mandalProgress) {
+        showIntrusiveToast();
+    } else {
+        showToast(`Welcome back, ${userName}!`);
+
+        thisExistsElement.innerHTML = `
+            <p>User Name: ${userName}</p>
+            <p>Mandal Progress:</p>
+            <ul id="mandalList"></ul>
+        `;
+
+        const mandalListElement = document.getElementById('mandalList');
+        mandalProgress.forEach((mandal, index) => {
+            mandalListElement.innerHTML += `<li>Mandal ${index + 1}: ${mandal.name}</li>`;
+        });
+    }
+}
+
+// ... (rest of the functions)
+</script>
 
 </body>
 
