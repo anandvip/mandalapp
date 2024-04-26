@@ -676,7 +676,7 @@
             const daysSinceStart = Math.floor((currentDate - creationDate) / (1000 * 60 * 60 * 24)) + 1;
 
             let userName = localStorage.getItem('userName');
-            const message = userName ? `Welcome back, ${userName}, to the ${daysSinceStart}th day in ${mandalaName}.` :
+            const message = userName ? `Welcome back, ${userName}, to the ${daysSinceStart}th day in ${mandalaName} for ${getPhaseOfDay()}.`;
                 `Welcome to the ${daysSinceStart}th day in ${mandalaName}.`;
 
             showToast(message);
@@ -862,10 +862,6 @@ function checkLocalStorage() {
         });
     }
 }
-
-// ... (rest of the functions)
-
-        //.. link resource for breath training. watch this. https://youtu.be/_p3DNi9x8PU?si=ZMFNGh-1SrxnkXBu, basic info daily 
 </script>
 
 </body>
