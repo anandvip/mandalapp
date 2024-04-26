@@ -211,7 +211,7 @@
 
 <!-- Intrusive Toast for Mandal Creation Form -->
 <div id="intrusiveToast" class="hidden">
-    <h2>Create a New Mandal</h2>
+    <h2>check local storage</h2>
     <input type="text" id="mandalName" placeholder="Mandal Focus or Intention" required>
     <select id="mandalDuration" required>
         <option value="48">48 days (96 sessions)</option>
@@ -220,6 +220,11 @@
     <input type="date" id="startDate" placeholder="Start Date">
     <button onclick="saveMandal()">Save Mandal</button>
 </div>
+
+
+                        <!-- Display found information -->
+<h3>This Already Exists</h3><sup>cannot create new mandal till ongoing is over)</sup>
+<section id="thisExists"></section>
                         <!-- Session tracking section -->
                         <section id="sessionTracking">
                             <button id="startSession" class="hidden">Start Session</button>
