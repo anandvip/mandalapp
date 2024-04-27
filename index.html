@@ -485,207 +485,107 @@
         }
     </script>
     <script>
-        // Function to update mandala header from local storage
-        function updateMandalaHeaderFromLocalStorage() {
-            const history = JSON.parse(localStorage.getItem('mandalProgress')) || [];
+    // Function to update mandala header from local storage
+function updateMandalaHeaderFromLocalStorage() {
+    const history = JSON.parse(localStorage.getItem('mandalProgress')) || [];
 
-            if (history.length === 0) {
-                console.error('No entries found in mandalProgress.');
-                return;
-            }
+    if (history.length === 0) {
+        console.error('No entries found in mandalProgress.');
+        return;
+    }
 
-            const firstEntry = history[0];
-            const mandalaName = firstEntry.name;
-            const creationDate = new Date(firstEntry.creationDate);
-            const currentDate = new Date();
-            const daysSinceStart = Math.floor((currentDate - creationDate) / (1000 * 60 * 60 * 24)) + 1;
+    const firstEntry = history[0];
+    const mandalaName = firstEntry.name;
+    const creationDate = new Date(firstEntry.creationDate);
+    const currentDate = new Date();
+    const daysSinceStart = Math.floor((currentDate - creationDate) / (1000 * 60 * 60 * 24)) + 1;
 
-            const mandalaHeaderElement = document.getElementById('mandalOngoing');
+    const mandalaHeaderElement = document.getElementById('mandalOngoing');
 
-            if (mandalaHeaderElement) {
-                mandalaHeaderElement.textContent = `${mandalaName} - ${daysSinceStart}th day in`;
-            } else {
-                console.error('Element with ID "mandalOngoing" not found.');
-            }
-        }
+    if (mandalaHeaderElement) {
+        mandalaHeaderElement.textContent = `${mandalaName} - ${daysSinceStart}th day in`;
+    } else {
+        console.error('Element with ID "mandalOngoing" not found.');
+    }
+}
 
-        // Function to display toast
-        function showToast(message) {
-            const toastElement = document.getElementById('toast');
-            let toastContent = `
-                <div class="intrusive-toast">
-                    <span>${message}</span>
-            `;
+// Function to display toast
+function showToast(message) {
+    const toastElement = document.getElementById('toast');
+    let toastContent = `
+        <div class="intrusive-toast">
+            <span>${message}</span>
+    `;
 
-            if (!localStorage.getItem('userName')) {
-                toastContent += `
-                    <input type="text" id="userNameInput" placeholder="Enter your name" class="user-name-input">
-                `;
-            }
+    if (!localStorage.getItem('userName')) {
+        toastContent += `
+            <input type="text" id="userNameInput" placeholder="Enter your name" class="user-name-input">
+        `;
+    }
 
-            toastContent += `
-                    <span onclick="hideToast()" class="close-icon">ⓧ</span>
-                </div>
-            `;
+    toastContent += `
+            <span onclick="hideToast()" class="close-icon">ⓧ</span>
+        </div>
+    `;
 
-            toastElement.innerHTML = toastContent;
-            toastElement.style.display = 'block';
-        }
+    toastElement.innerHTML = toastContent;
+    toastElement.style.display = 'block';
+}
 
-        // Function to hide toast
-        function hideToast() {
-            const toastElement = document.getElementById('toast');
-            toastElement.style.display = 'none';
-        }
+// Function to hide toast
+function hideToast() {
+    const toastElement = document.getElementById('toast');
+    toastElement.style.display = 'none';
+}
 
-        // Function to save user name
-        function saveUserName() {
-            const userName = document.getElementById('userNameInput').value;
-            userNameInput.addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            saveUserName();
-        }
-            });
+// Function to save user name
+function saveUserName() {
+    const userName = document.getElementById('userNameInput').value;
 
-            if (userName) {
-                localStorage.setItem('userName', userName);
-                hideToast();
-                welcomeUser();
-            } else {
-               console.error("user name already there !");
-            }
-
-        // Function to welcome user
-        function welcomeUser() {
-            const history = JSON.parse(localStorage.getItem('mandalProgress')) || [];
-
-            if (history.length === 0) {
-                console.error('No entries found in mandalProgress.');
-                return;
-            }
-
-            const firstEntry = history[0];
-            const mandalaName = firstEntry.name;
-            const creationDate = new Date(firstEntry.creationDate);
-
-            if (isNaN(creationDate.getTime())) {
-                console.error('Invalid creation date format');
-                return;
-            }
-
-            const currentDate = new Date();
-            const daysSinceStart = Math.floor((currentDate - creationDate) / (1000 * 60 * 60 * 24)) + 1;
-
-            let userName = localStorage.getItem('userName');
-            const message = userName ? `Welcome back, ${userName}, to the ${daysSinceStart}th day on ${currentDate} in ${mandalaName} for your ${getPhaseOfDay()}!` :
-                `Welcome to the ${daysSinceStart}th day in ${mandalaName} for your ${getPhaseOfDay()}.`;
-
-            showToast(message);
-        }
-
-        // Invoke functions
-        updateMandalaHeaderFromLocalStorage();
+    if (userName) {
+        localStorage.setItem('userName', userName);
+        hideToast();
         welcomeUser();
+    } else {
+        alert('Please enter your name.');
+    }
+}
+
+// Function to welcome user
+function welcomeUser() {
+    const history = JSON.parse(localStorage.getItem('mandalProgress')) || [];
+
+    if (history.length === 0) {
+        console.error('No entries found in mandalProgress.');
+        return;
+    }
+
+    const firstEntry = history[0];
+    const mandalaName = firstEntry.name;
+    const creationDate = new Date(firstEntry.creationDate);
+
+    if (isNaN(creationDate.getTime())) {
+        console.error('Invalid creation date format');
+        return;
+    }
+
+    const currentDate = new Date();
+    const daysSinceStart = Math.floor((currentDate - creationDate) / (1000 * 60 * 60 * 24)) + 1;
+
+    let userName = localStorage.getItem('userName');
+    const message = userName ? `Welcome back, ${userName}, to the ${daysSinceStart}th day in ${mandalaName} for ${getPhaseOfDay()}.` :
+        `Welcome to the ${daysSinceStart}th day in ${mandalaName}.`;
+
+    showToast(message);
+}
+
+// Invoke functions
+updateMandalaHeaderFromLocalStorage();
+welcomeUser();
+
     </script>
-   <script>
-        // Function to update mandala header from local storage
-        function updateMandalaHeaderFromLocalStorage() {
-            const history = JSON.parse(localStorage.getItem('mandalProgress')) || [];
 
-            if (history.length === 0) {
-                console.error('No entries found in mandalProgress.');
-                return;
-            }
-
-            const firstEntry = history[0];
-            const mandalaName = firstEntry.name;
-            const creationDate = new Date(firstEntry.creationDate);
-            const currentDate = new Date();
-            const daysSinceStart = Math.floor((currentDate - creationDate) / (1000 * 60 * 60 * 24)) + 1;
-
-            const mandalaHeaderElement = document.getElementById('mandalOngoing');
-
-            if (mandalaHeaderElement) {
-                mandalaHeaderElement.textContent = `${mandalaName} - ${daysSinceStart}th day in`;
-            } else {
-                console.error('Element with ID "mandalOngoing" not found.');
-            }
-        }
-
-        // Function to display toast
-        function showToast(message) {
-            const toastElement = document.getElementById('toast');
-            let toastContent = `
-                <div class="intrusive-toast">
-                    <span>${message}</span>
-            `;
-
-            if (!localStorage.getItem('userName')) {
-                toastContent += `
-                    <input type="text" id="userNameInput" placeholder="Enter your name" class="user-name-input">
-                `;
-            }
-
-            toastContent += `
-                    <span onclick="hideToast()" class="close-icon">ⓧ</span>
-                </div>
-            `;
-
-            toastElement.innerHTML = toastContent;
-            toastElement.style.display = 'block';
-        }
-
-        // Function to hide toast
-        function hideToast() {
-            const toastElement = document.getElementById('toast');
-            toastElement.style.display = 'none';
-        }
-
-        // Function to save user name
-        function saveUserName() {
-            const userName = document.getElementById('userNameInput').value;
-
-            if (userName) {
-                localStorage.setItem('userName', userName);
-                hideToast();
-                welcomeUser();
-            } else {
-                alert('Please enter your name.');
-            }
-        });
-
-        // Function to welcome user
-        function welcomeUser() {
-            const history = JSON.parse(localStorage.getItem('mandalProgress')) || [];
-
-            if (history.length === 0) {
-                console.error('No entries found in mandalProgress.');
-                return;
-            }
-
-            const firstEntry = history[0];
-            const mandalaName = firstEntry.name;
-            const creationDate = new Date(firstEntry.creationDate);
-
-            if (isNaN(creationDate.getTime())) {
-                console.error('Invalid creation date format');
-                return;
-            }
-
-            const currentDate = new Date();
-            const daysSinceStart = Math.floor((currentDate - creationDate) / (1000 * 60 * 60 * 24)) + 1;
-
-            let userName = localStorage.getItem('userName');
-            const message = userName ? `Welcome back, ${userName}, to the ${daysSinceStart}th day in ${mandalaName} for ${getPhaseOfDay()}.`;
-                `Welcome to the ${daysSinceStart}th day in ${mandalaName}.`;
-
-            showToast(message);
-        }
-
-        // Invoke functions
-        updateMandalaHeaderFromLocalStorage();
-        welcomeUser();
-    </script>
+        
   <script>
     // Function to check local storage and show dialog if necessary
     function checkLocalStorage() {
